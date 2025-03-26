@@ -20,3 +20,17 @@ def cadastro(request):
             return redirect("login")
         
     return render(request,'contas/cadastro.html')
+
+def login(request):
+    if request.POST:
+        id = request.POST.get('id')
+        senha = request.POST.get('senha')
+        usuario=authenticate(request,id=id,senha=senha)
+        if usuario is not None:
+            login(request,usuario)
+            return redirect('/')
+        else:
+            messages.error(request, "Usuario ou senha invalido")
+            return redirect('contas/login.html')
+        
+    return render(request, 'contas/login.html')
