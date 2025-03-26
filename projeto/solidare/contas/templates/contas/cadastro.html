@@ -1,0 +1,15 @@
+<h2>Cadastro</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="id" placeholder="ID" required>
+    <input type="text" name="nome" placeholder="Nome" required>
+    <input type="text" name="sobrenome" placeholder="Sobrenome" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="senha" placeholder="Senha" required>
+    <select name="tipo_usuario" required>
+        <option value="aluno">Aluno</option>
+        <option value="professor">Professor</option>
+        <option value="admin">Administrador</option>
+    </select>
+    <button type="submit">Cadastrar</button>
+</form>
