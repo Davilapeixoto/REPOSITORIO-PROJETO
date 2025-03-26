@@ -34,3 +34,17 @@ def login(request):
             return redirect('contas/login.html')
         
     return render(request, 'contas/login.html')
+
+@login_required
+def autenticador(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    if request.user.tipo_usuario=='aluno':
+        return redirect('area_aluno')
+    elif request.user.tipo_usuario=='professor':
+        return redirect('area_professor')
+    elif request.user.tipo_usuario=='admin':
+        return redirect('area_admin')
+    else:
+        return redirect('area_patrocinador')
