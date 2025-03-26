@@ -1,31 +1,33 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from functools import wraps
 from .models import func_usuarios
 
 # Create your views here.
 
 def cadastro(request):
     if request.method =="POST":
-        id=request.POST.get("id")
+        id_usuario=request.POST.get("id_usuario")
         email=request.POST.get("email")
         senha=request.POST.get("senha")
         tipo_usuario=request.POST.get("tipo_usuario")
         nome=request.POST.get("nome")
         sobrenome=request.POST.get("sobrenome")
-        if id and email and senha and tipo_usuario and nome and sobrenome:
-            usuario= func_usuarios(id=id,email=email,tipo_usuario=tipo_usuario,nome=nome,sobrenome=sobrenome)
+        if id_usuario and email and senha and tipo_usuario and nome and sobrenome:
+            usuario= func_usuarios(id_usuario=id_usuario,email=email,tipo_usuario=tipo_usuario,nome=nome,sobrenome=sobrenome)
+            usuario.set_password(senha)
             usuario.save()
             login(request,usuario)
             return redirect("login")
         
     return render(request,'contas/cadastro.html')
 
-def login(request):
-    if request.POST:
-        id = request.POST.get('id')
+def fazer_login(request):
+    if request.POST: 
+        id_usuario = request.POST.get('id_usuario')
         senha = request.POST.get('senha')
-        usuario=authenticate(request,id=id,senha=senha)
+        usuario=authenticate(request,id_usuario=id_usuario,senha=senha)
         if usuario is not None:
             login(request,usuario)
             return redirect('/')
@@ -35,7 +37,7 @@ def login(request):
         
     return render(request, 'contas/login.html')
 
-def logout(request):
+def fazer_logout(request):
     logout(request)
     return redirect('login')
 
