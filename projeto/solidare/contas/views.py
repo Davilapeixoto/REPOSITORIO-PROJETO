@@ -14,9 +14,9 @@ def cadastro(request):
         nome=request.POST.get("nome")
         sobrenome=request.POST.get("sobrenome")
         if id and email and senha and tipo_usuario and nome and sobrenome:
-            user= func_usuarios(id=id,email=email,tipo_usuario=tipo_usuario,nome=nome,sobrenome=sobrenome)
-            user.save()
-            login(request,user)
+            usuario= func_usuarios(id=id,email=email,tipo_usuario=tipo_usuario,nome=nome,sobrenome=sobrenome)
+            usuario.save()
+            login(request,usuario)
             return redirect("login")
         
     return render(request,'contas/cadastro.html')
@@ -35,6 +35,10 @@ def login(request):
         
     return render(request, 'contas/login.html')
 
+def logout(request):
+    logout(request)
+    return redirect('login')
+
 @login_required
 def autenticador(request):
     if not request.user.is_authenticated:
@@ -48,3 +52,4 @@ def autenticador(request):
         return redirect('area_admin')
     else:
         return redirect('area_patrocinador')
+    
