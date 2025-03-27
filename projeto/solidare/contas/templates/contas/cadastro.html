@@ -1,15 +1,36 @@
-<h2>Cadastro</h2>
-<form method="post">
-    {% csrf_token %}
-    <input type="text" name="id" placeholder="ID" required>
-    <input type="text" name="nome" placeholder="Nome" required>
-    <input type="text" name="sobrenome" placeholder="Sobrenome" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="senha" placeholder="Senha" required>
-    <select name="tipo_usuario" required>
-        <option value="aluno">Aluno</option>
-        <option value="professor">Professor</option>
-        <option value="admin">Administrador</option>
-    </select>
-    <button type="submit">Cadastrar</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro</title>
+</head>
+<body>
+    <h1>Cadastro</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_usuario">Usuário:</label>
+        <input type="text" name="id_usuario" id="id_usuario" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha" required>
+        <label for="tipo_usuario">Tipo:</label>
+        <select name="tipo_usuario" id="tipo_usuario" required>
+            <option value="aluno">Aluno</option>
+            <option value="professor">Professor</option>
+            <option value="admin">Administrador</option>
+            <option value="patrocinador">Patrocinador</option>
+        </select>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required>
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" name="sobrenome" id="sobrenome" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <a href="{% url 'login' %}">Já possui uma conta? Faça login</a>
+</body>
+</html>

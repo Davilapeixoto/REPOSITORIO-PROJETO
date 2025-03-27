@@ -16,11 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from contas.views import fazer_login,cadastro
+from contas.views import home,fazer_logout,fazer_login,cadastro,area_admin,area_aluno,area_patrocinador,area_professor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
     path('login/',fazer_login,name='login'),
+    path('logout/', fazer_logout, name='logout'),
     path('cadastro/',cadastro,name='cadastro'),
+    path('area_aluno/', area_aluno, name='area_aluno'),
+    path('area_professor/', area_professor, name='area_professor'),
+    path('area_admin/', area_admin, name='area_admin'),
+    path('area_patrocinador/', area_patrocinador, name='area_patrocinador'),
 
 ]

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_usuario">Usuário:</label>
+        <input type="text" name="id_usuario" id="id_usuario" required>
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha" required>
+        <button type="submit">Entrar</button>
+    </form>
+    <a href="{% url 'cadastro' %}">Cadastre-se</a>
+</body>
+</html>
