@@ -103,3 +103,10 @@ def area_admin(request):
 @tipo_requerido('patrocinador')
 def area_patrocinador(request):
     return render(request, 'contas/area_patrocinador.html')
+
+from django.shortcuts import render
+from .models import Produto
+
+def dashboard(request):
+    produtos = Produto.objects.all()
+    return render(request, 'template.html', {'produtos': produtos})

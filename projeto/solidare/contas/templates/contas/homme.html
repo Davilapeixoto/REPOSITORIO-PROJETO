@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="Logo">
+            <span>solokiare</span>
+        </div>
+        <nav class="nav">
+            <a href="{% url 'area_aluno' %}" class="btn-area-aluno">Área do Aluno</a>
+            <div class="user-info">
+                <span>Usuário</span>
+                <small>Admin</small>
+            </div>
+        </nav>
+    </header>
+
+    <main class="card-container">
+        {% for produto in produtos %}
+            <div class="card">
+                <h3>{{ produto.nome }}</h3>
+                <p>{{ produto.descricao }}</p>
+                <span class="preco">R$ {{ produto.preco }}</span>
+            </div>
+        {% endfor %}
+    </main>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
