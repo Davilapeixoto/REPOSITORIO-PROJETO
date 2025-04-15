@@ -1,2 +1,35 @@
 <h2>Bem-vindo, Aluno!</h2>
 <p>Essa é a área exclusiva para alunos.</p>
+
+<h3>Seus Cursos:</h3>
+<ul>
+    {% for curso in cursos %}
+        <li>{{ curso.nome }} - {{ curso.descricao }}</li>
+    {% empty %}
+        <li>Você ainda não está matriculado em nenhum curso.</li>
+    {% endfor %}
+</ul>
+
+<h3>Desempenho Acadêmico:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Nota</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for desempenho in desempenhos %}
+        <tr>
+            <td>{{ desempenho.curso.nome }}</td>
+            <td>{{ desempenho.nota }}</td>
+            <td>{{ desempenho.status }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum desempenho registrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

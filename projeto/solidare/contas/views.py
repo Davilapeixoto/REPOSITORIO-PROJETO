@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from functools import wraps
 from .models import func_usuarios
 from django.contrib import messages
+from alunos.models import Desempenho
 
 # Create your views here.
 
@@ -84,7 +85,16 @@ def area_professor(request):
 
 @tipo_requerido('aluno')
 def area_aluno(request):
-    return render(request, 'contas/area_aluno.html')
+    cursos = request.user.cursos.all()
+    desempenhos = Desempenho.objects.filter(aluno=request.user)
+    for desempenho in desempenhos:
+        if desempenho.nota >= 7:
+            desempenho.status = 'Bom'
+        elif 5 <= desempenho.nota < 7:
+            desempenho.status = 'Regular'
+        else:
+            desempenho.status = 'Ruim'
+    return render(request, 'contas/area_aluno.html', {'cursos': cursos})
 
 @tipo_requerido('admin')
 def area_admin(request):
